@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cancionero — Cantos para la Misa</title>
+  <script>
+    var target = "cancionero://misa" + window.location.search;
+    window.location.replace(target);
+  </script>
+  <style>
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: #F4EFE4; color: #23251F; font-family: system-ui, -apple-system, sans-serif;
+      padding: 24px; box-sizing: border-box; text-align: center;
+    }
+    .card {
+      background: #FBF8F1; border: 1px solid #E2DCCF; border-radius: 16px;
+      padding: 28px 24px; max-width: 360px; width: 100%;
+    }
+    h1 { color: #253D2C; font-size: 22px; margin: 0 0 8px; }
+    p { color: #625E55; font-size: 15px; line-height: 1.45; margin: 0 0 20px; }
+    a.btn {
+      display: inline-block; background: #253D2C; color: #F4EFE4; text-decoration: none;
+      font-weight: 600; font-size: 16px; padding: 14px 24px; border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Cancionero</h1>
+    <p>Parroquia Cristo Hijo de Dios</p>
+    <a id="openBtn" class="btn" href="cancionero://misa">Abrir cantos en la app</a>
+  </div>
+  <script>
+    document.getElementById("openBtn").href = "cancionero://misa" + window.location.search;
+  </script>
+</body>
+</html>
