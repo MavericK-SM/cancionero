@@ -1,39 +1,40 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="es-PE">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
   <title>Cancionero — Cantos para la Misa</title>
+  <!-- El link de Misa que se comparte por WhatsApp (…/cancionero/misa?d=…&s=…).
+       - Android con la app: la abren las App Links; si el link se abre en un navegador, se intenta con
+         cancionero://misa?… y, si en un momento la app no se abrió, sigue la versión web.
+       - iPhone y computadoras: la versión web carga la Misa en «Hoy». -->
   <script>
-    var target = "cancionero://misa" + window.location.search;
-    window.location.replace(target);
+    var query = location.search;
+    var web = location.pathname.replace(/misa(\.html)?\/?(index\.html)?$/, '') + '#/importar?' + query.slice(1);
+    if (/Android/i.test(navigator.userAgent)) {
+      var fallback = setTimeout(function () { location.replace(web); }, 1500);
+      document.addEventListener('visibilitychange', function () { if (document.hidden) clearTimeout(fallback); });
+      location.href = 'cancionero://misa' + query;
+    } else {
+      location.replace(web);
+    }
   </script>
   <style>
-    body {
-      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      background: #F4EFE4; color: #23251F; font-family: system-ui, -apple-system, sans-serif;
-      padding: 24px; box-sizing: border-box; text-align: center;
-    }
-    .card {
-      background: #FBF8F1; border: 1px solid #E2DCCF; border-radius: 16px;
-      padding: 28px 24px; max-width: 360px; width: 100%;
-    }
-    h1 { color: #253D2C; font-size: 22px; margin: 0 0 8px; }
-    p { color: #625E55; font-size: 15px; line-height: 1.45; margin: 0 0 20px; }
-    a.btn {
-      display: inline-block; background: #253D2C; color: #F4EFE4; text-decoration: none;
-      font-weight: 600; font-size: 16px; padding: 14px 24px; border-radius: 999px;
-    }
+    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: system-ui, -apple-system, sans-serif; background: #fff; color: #000; text-align: center; padding: 24px; box-sizing: border-box; }
+    @media (prefers-color-scheme: dark) { body { background: #000; color: #fff; } }
+    p { color: #8e8e93; }
+    a { display: inline-block; margin-top: 12px; padding: 14px 24px; border-radius: 999px; background: #0066cc; color: #fff; text-decoration: none; font-weight: 600; }
   </style>
 </head>
 <body>
-  <div class="card">
+  <div>
     <h1>Cancionero</h1>
     <p>Parroquia Cristo Hijo de Dios</p>
-    <a id="openBtn" class="btn" href="cancionero://misa">Abrir cantos en la app</a>
+    <a id="open" href="../">Abrir los cantos</a>
   </div>
   <script>
-    document.getElementById("openBtn").href = "cancionero://misa" + window.location.search;
+    document.getElementById('open').href = web;
   </script>
 </body>
 </html>
